@@ -1,7 +1,8 @@
-import { View, Text, StyleSheet, Image } from "react-native";
+import { View, Text, StyleSheet, Image, Pressable } from "react-native";
 import React from "react";
 import { Post } from "../types";
 import { FontAwesome } from "@expo/vector-icons";
+import { Link } from "expo-router";
 
 type PostListItemProps = {
   post: Post;
@@ -23,33 +24,35 @@ function FooterButton({ text, icon }: FooterButtonProp) {
 }
 export default function PostListItem({ post }: PostListItemProps) {
   return (
-    <View>
-      {/* Header */}
-      <View style={styles.header}>
-        <Image source={{ uri: post.author.image }} style={styles.userImage} />
-        <View>
-          <Text style={styles.username}>{post.author.name}</Text>
-          <Text>{post.author.position}</Text>
+    <Link href={`/posts/${post.id}`} asChild>
+      <Pressable>
+        {/* Header */}
+        <View style={styles.header}>
+          <Image source={{ uri: post.author.image }} style={styles.userImage} />
+          <View>
+            <Text style={styles.username}>{post.author.name}</Text>
+            <Text>{post.author.position}</Text>
+          </View>
         </View>
-      </View>
-      {/* Text content */}
-      <Text style={styles.content}>{post.content}</Text>
+        {/* Text content */}
+        <Text style={styles.content}>{post.content}</Text>
 
-      {/* Image content */}
+        {/* Image content */}
 
-      {post.image && (
-        <Image source={{ uri: post.image }} style={styles.postImage} />
-      )}
-      {/* Footer content */}
-      <View style={styles.footer}>
-        {/* LIke */}
-        <FooterButton text="Like" icon="thumbs-o-up" />
-        {/* COmment */}
-        <FooterButton text="Comment" icon="comment-o" />
-        {/* Share */}
-        <FooterButton text="Share" icon="share" />
-      </View>
-    </View>
+        {post.image && (
+          <Image source={{ uri: post.image }} style={styles.postImage} />
+        )}
+        {/* Footer content */}
+        <View style={styles.footer}>
+          {/* LIke */}
+          <FooterButton text="Like" icon="thumbs-o-up" />
+          {/* COmment */}
+          <FooterButton text="Comment" icon="comment-o" />
+          {/* Share */}
+          <FooterButton text="Share" icon="share" />
+        </View>
+      </Pressable>
+    </Link>
   );
 }
 
