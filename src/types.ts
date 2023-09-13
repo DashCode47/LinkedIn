@@ -3,7 +3,7 @@ export type Post={
     content:string;
     image?:string;
     likes:number;
-    authot:User;
+    author:User;
 }
 
 export type User={
