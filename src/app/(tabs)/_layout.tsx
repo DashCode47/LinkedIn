@@ -29,13 +29,13 @@ export default function TabLayout() {
           title: "Home feed",
           tabBarIcon: ({ color }) => <TabBarIcon name="home" color={color} />,
           headerRight: () => (
-            <Link href="/modal" asChild>
+            <Link href="/search" asChild>
               <Pressable>
                 {({ pressed }) => (
                   <FontAwesome
-                    name="info-circle"
-                    size={24}
-                    color={Colors[colorScheme ?? "light"].text}
+                    name="search"
+                    size={20}
+                    color={"gray"}
                     style={{ marginRight: 15, opacity: pressed ? 0.5 : 1 }}
                   />
                 )}
