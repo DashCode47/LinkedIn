@@ -1,10 +1,19 @@
-import { View, Text, StyleSheet, Image, Pressable } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  Image,
+  Pressable,
+  ScrollView,
+} from "react-native";
 import React, { useLayoutEffect, useState } from "react";
 import { useLocalSearchParams, useNavigation } from "expo-router";
 import userJson from "../../../assets/data/user.json";
+import { User } from "../../types";
+import ExperienceListItem from "../../components/ExperienceListItem";
 
 export default function Profile() {
-  const [user, setUser] = useState(userJson);
+  const [user, setUser] = useState<User>(userJson);
 
   const { id } = useLocalSearchParams();
   const navigation = useNavigation();
@@ -18,7 +27,7 @@ export default function Profile() {
   }, [user?.name]);
 
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.container}>
       {/* Header */}
       <View style={styles.header}>
         {/* BG image */}
@@ -41,8 +50,13 @@ export default function Profile() {
         <Text style={styles.paragraph}>{user.about}</Text>
       </View>
       {/* Experience */}
-      <View style={styles.xp}></View>
-    </View>
+      <View style={styles.about}>
+        <Text style={styles.aboutTitle}>Experience</Text>
+        {user.experience?.map((experience) => (
+          <ExperienceListItem key={experience.id} experience={experience} />
+        ))}
+      </View>
+    </ScrollView>
   );
 }
 
@@ -50,6 +64,7 @@ const styles = StyleSheet.create({
   container: {},
   header: {
     backgroundColor: "white",
+    marginBottom: 5,
   },
   xp: {},
   backImage: {
@@ -88,7 +103,7 @@ const styles = StyleSheet.create({
   about: {
     backgroundColor: "white",
     padding: 10,
-    marginVertical: 10,
+    marginVertical: 5,
   },
   aboutTitle: {
     fontSize: 18,
